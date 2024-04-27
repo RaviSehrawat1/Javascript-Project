@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="fontawesome-free-6.5.1-web/fontawesome-free-6.5.1-web/css/all.css"
+    />
+  </head>
+  <style>
+    * {
+      margin: 0px;
+      padding: 0px;
+    }
+    body {
+      width: 100vw;
+      height: 100vh;
+      background: rgb(199, 131, 4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .outer {
+      width: 40%;
+      background-color: black;
+      text-align: center;
+      border-bottom: 8px solid pink;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      border-top-right-radius: 30px;
+    }
+    .bt1 {
+      background-color: rgb(199, 131, 4);
+      padding: 5px 10px 5px 10px;
+      border-radius: 10px;
+      font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+        sans-serif;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+    p {
+      margin-top: 15px;
+      color: white;
+      font-size: small;
+      line-height: 18px;
+      padding: 10px;
+      opacity: 0;
+    }
+    .fade {
+      opacity: 1;
+      transform: opacity 1.5s;
+    }
+    .fas {
+      margin-top: 30px;
+      color: rgb(233, 145, 13);
+      font-size: 100px;
+    }
+  </style>
+  <body>
+    <div class="outer">
+      <i class="fas fa-smile-beam"></i>
+      <p></p>
+      <button class="bt1">Get Random Joke</button>
+    </div>
+    <script>
+      let jokes = document.querySelector("p");
+      let btn = document.querySelector(".bt1");
+      let url =
+        "https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit&type=single";
+      let getjk = () => {
+        jokes.innerText="";
+        jokes.classList.remove("fade")
+        fetch(url)
+          .then((data) => data.json())
+          .then((item) => {
+            jokes.innerText = `${item.joke}`;
+            jokes.classList.add("fade");
+          });
+      };
+      btn.addEventListener("click", getjk);
+      getjk();
+    </script>
+  </body>
+</html>
