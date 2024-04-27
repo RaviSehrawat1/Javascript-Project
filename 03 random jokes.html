@@ -66,21 +66,16 @@
     </div>
     <script>
       let jokes = document.querySelector("p");
-      let btn = document.querySelector(".bt1");
-      let url =
-        "https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit&type=single";
-      let getjk = () => {
-        jokes.innerText="";
-        jokes.classList.remove("fade")
-        fetch(url)
+        document.querySelector(".bt1").addEventListener("click", () => {
+        jokes.innerText = "";
+        jokes.classList.remove("fade");
+        fetch("https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit&type=single")
           .then((data) => data.json())
           .then((item) => {
             jokes.innerText = `${item.joke}`;
             jokes.classList.add("fade");
           });
-      };
-      btn.addEventListener("click", getjk);
-      getjk();
+      });
     </script>
   </body>
 </html>
