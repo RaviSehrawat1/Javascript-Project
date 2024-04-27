@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="fontawesome-free-6.5.1-web/fontawesome-free-6.5.1-web/css/all.css"
+    />
+    <script src="fontawesome-free-6.5.1-web/fontawesome-free-6.5.1-web/js/brands.js"></script>
+  </head>
+  <style>
+    * {
+      margin: 0px;
+      padding: 0px;
+    }
+    body {
+      background-color: rgb(20, 20, 20);
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .outer {
+      display: grid;
+      grid-template-columns: auto auto auto auto;
+      grid-gap: 20px;
+    }
+    .as1 {
+      width: 130px;
+      border-bottom: 5px solid rgb(65, 247, 238);
+      text-align: center;
+      border-radius: 10px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      background-color: rgb(89, 94, 94);
+      h2 {
+        margin-top: 5px;
+        color: aliceblue;
+      }
+      p {
+        margin-top: 5px;
+        font-size: x-small;
+        color: aliceblue;
+      }
+    }
+    .fas {
+      color: aqua;
+      font-size: 30px;
+    }
+    @media screen and (max-width: 700px) {
+      .outer {
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-gap: 20px;
+      }
+    }
+    @media screen and (max-width: 400px) {
+      .outer {
+        display: grid;
+        grid-template-columns: auto;
+        grid-gap: 5px;
+      }
+      .as1 {
+        width: 300px;
+      }
+    }
+  </style>
+  <body>
+    <div class="outer">
+      <div class="as1 qw1">
+        <i class="fas fa-utensils"></i>
+        <h2 class="op1" data-val="100">00</h2>
+        <p>Meals Delivery</p>
+      </div>
+      <div class="as1 qw2">
+        <i class="fas fa-smile-beam"></i>
+        <h2 class="op1" data-val="200">00</h2>
+        <p>Happy Customers</p>
+      </div>
+      <div class="as1 qw3">
+        <i class="fas fa-list"></i>
+        <h2 class="op1" data-val="300">00</h2>
+        <p>Menu Items</p>
+      </div>
+      <div class="as1 qw4">
+        <i class="fas fa-star"></i>
+        <h2 class="op1" data-val="400">00</h2>
+        <p>Five Stars</p>
+      </div>
+    </div>
+    <script>
+      // let vd = document.querySelectorAll(".op1");
+      // let interval = 5000;
+      // vd.forEach((element) => {
+      //   let start = 0;
+      //   let end = parseInt(element.getAttribute("data-val"));
+      //   let duration = Math.floor(interval / end);
+      //   let co = setInterval(function () {
+      //     start += 1;
+      //     element.textContent = start;
+      //     if (start == end) {
+      //       clearInterval(co);
+      //     }
+      //   }, duration);
+      // });
+
+      // second method....
+      var vd = document.querySelectorAll(".op1");
+
+      for (const iterator of vd) {
+        console.log(iterator);
+        let start = 0;
+        let inte = 5000;
+        let end = parseInt(iterator.getAttribute("data-val"));
+        let co = setInterval(() => {
+          start += 1;
+          iterator.textContent = start;
+          if (start == end) {
+            clearInterval(co);
+          }
+        }, inte / end);
+      }
+    </script>
+  </body>
+</html>
