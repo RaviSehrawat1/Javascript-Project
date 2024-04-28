@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="fontawesome-free-6.5.1-web/fontawesome-free-6.5.1-web/css/all.css"
+    />
+    <script src="fontawesome-free-6.5.1-web/fontawesome-free-6.5.1-web/js/all.js"></script>
+  </head>
+  <style>
+    * {
+      margin: 0px;
+      padding: 0px;
+    }
+    body {
+      width: 100vw;
+      height: 100vh;
+      background-color: rgb(100, 145, 243);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      width: 80%;
+      background-color: #fff;
+      padding: 2% 2% 1.5% 2%;
+      text-align: center;
+      box-sizing: border-box;
+      border-radius: 5px;
+    }
+    .text {
+      border: 2px solid black;
+      resize: none;
+      width: 100%;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+    .option {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      grid-column-gap: 10px;
+    }
+    button {
+      padding: 5px;
+      border: none;
+      background-color: #fff;
+    }
+    .as {
+      font-size: 15px;
+    }
+    .op {
+      margin: 5px;
+      font-size: 12px;
+      height: 20px;
+      border: 1px solid black;
+      border-radius: 2px;
+      font-family: "poppins", sans-serif;
+    }
+    .input-wrp {
+      display: flex;
+      align-items: center;
+      font-size: 11px;
+      gap: 8px;
+      font-weight: 600;
+    }
+    input {
+      background-color: transparent;
+      width: 40px;
+      height: 22px;
+      border: none;
+      border-radius: 10px;
+    }
+    input::-webkit-color-swatch {
+      border-radius: 10px;
+      box-shadow: 0 0 0 2px white, 0 0 0 3px black;
+    }
+
+    @media screen and (min-width: 650px) {
+      .container {
+        width: 50%;
+      }
+    }
+    .active {
+      background-color: blueviolet;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div class="option">
+        <button id="cut" class="option-button format">
+          <i class="fa-solid fa-bold as"></i>
+        </button>
+        <button id="italic" class="option-button format">
+          <i class="fa-solid fa-italic as"></i>
+        </button>
+        <button id="underline" class="option-button format">
+          <i class="fa-solid fa-underline as"></i>
+        </button>
+        <button id="strikethrough" class="option-button format">
+          <i class="fa-solid fa-strikethrough as"></i>
+        </button>
+        <button id="superscript" class="option-button scrip">
+          <i class="fa-solid fa-superscript as"></i>
+        </button>
+        <button id="subscript" class="option-button scrip">
+          <i class="fa-solid fa-subscript as"></i>
+        </button>
+        <button id="insertOrderedList" class="option-button">
+          <i class="fa-solid fa-list-ol as"></i>
+        </button>
+        <button id="insertUnorderedList" class="option-button">
+          <i class="fa-solid fa-list-ul as"></i>
+        </button>
+        <button id="undo" class="option-button">
+          <i class="fa-solid fa-rotate-left as"></i>
+        </button>
+        <button id="redo" class="option-button">
+          <i class="fa-solid fa-rotate-right as"></i>
+        </button>
+        <button id="createLink" class="adv-option-button">
+          <i class="fa-solid fa-link as"></i>
+        </button>
+        <button id="unlink" class="option-button">
+          <i class="fa-solid fa-unlink as"></i>
+        </button>
+        <button id="justifyLeft" class="option-button align">
+          <i class="fa-solid fa-align-left as"></i>
+        </button>
+        <button id="justifyCenter" class="option-button align">
+          <i class="fa-solid fa-align-center as"></i>
+        </button>
+        <button id="justifyRight" class="option-button align">
+          <i class="fa-solid fa-align-right as"></i>
+        </button>
+        <button id="justifyFull" class="option-button align">
+          <i class="fa-solid fa-align-justify as"></i>
+        </button>
+        <button id="indent" class="option-button spacing">
+          <i class="fa-solid fa-indent as"></i>
+        </button>
+        <button id="outdent" class="option-button spacing">
+          <i class="fa-solid fa-outdent as"></i>
+        </button>
+        <select name="" id="formatBlock" class="op adv-option-button"></select>
+        <select name="" id="fontName" class="op adv-option-button"></select>
+        <select name="" id="font-size" class="op adv-option-button"></select>
+        <div class="input-wrp">
+          <input
+            type="color"
+            name=""
+            id="foreColor"
+            class="adv-option-button"
+          />
+          <label for="as1">Font color</label>
+        </div>
+        <div class="input-wrp">
+          <input
+            type="color"
+            name=""
+            id="backColor"
+            class="adv-option-button"
+          />
+          <label for="as2">Highlight color</label>
+        </div>
+      </div>
+      <textarea class="text" name="" id="" cols="20" rows="13"></textarea>
+    </div>
+    <script>
+      let opbt = document.querySelectorAll(".option-button");
+      let aopbt = document.querySelectorAll(".adv-option-button");
+      let fontname = document.querySelector("#fontName");
+      let fontsize = document.querySelector("#font-size");
+      let text = document.querySelector(".text");
+      let linkbt = document.querySelector("#createLink");
+      let alibt = document.querySelectorAll(".align");
+      let format = document.querySelectorAll(".format");
+      let scip = document.querySelectorAll(".scrip");
+      let spacing = document.querySelectorAll(".spacing");
+      let fontlist = [
+        "Arial",
+        "Verdana",
+        "Times New Roman",
+        "Georgia",
+        "Courier New",
+        "cursive",
+        "Cambria",
+      ];
+
+      let zxc = ["H1", "H2", "H3", "H4", "H5", "H6"];
+      const initi = () => {
+        highlighter(alibt, true);
+        highlighter(spacing, true);
+        highlighter(format, true);
+        highlighter(scip, true);
+      };
+      // font by heading
+      zxc.map((op) => {
+        let option = document.createElement("option");
+        option.value = op;
+        option.innerText = op;
+        document.querySelector("#formatBlock").appendChild(option);
+      });
+      // font family list
+      fontlist.map((alue) => {
+        let option = document.createElement("option");
+        option.value = alue;
+        fontname.appendChild(option);
+        option.innerText = alue;
+      });
+      // font size
+      for (let index = 1; index < 10; index++) {
+        let option = document.createElement("option");
+        option.value = index;
+        option.innerText = index;
+        fontsize.appendChild(option);
+      }
+      function highlighter(classname, needremoval) {
+        classname.forEach((element) => {
+          element.addEventListener("click", () => {
+            if (needremoval) {
+              let aleradyact = false;
+              if (element.classList.contains("active")) {
+                aleradyact = true;
+              }
+              highremove(classname);
+              if (!aleradyact) {
+                element.classList.add("active");
+              } else {
+                element.classList.toggle("active");
+              }
+            }
+          });
+        });
+      }
+      function highremove(classname) {
+        classname.forEach((element) => {
+          element.classList.remove("active");
+        });
+      }
+      fontsize.value = 3;
+      // main logic...
+      let modify = (command, defaultUi, value) => {
+        document.execCommand(command, defaultUi, value);
+      };
+      opbt.forEach((element) => {
+        element.addEventListener("click", () => {
+          modify(element.id, false, null);
+        });
+      });
+      aopbt.forEach((element) => {
+        element.addEventListener("change", () => {
+          modify(element.id, false, element.value);
+        });
+      });
+      linkbt.addEventListener("click", () => {
+        let ulink = prompt("Enter your link");
+        if (/http/i.test(ulink)) {
+          modify(linkbt.id, false, ulink);
+        } else {
+          ulink = "http://" + ulink;
+          modify(linkbt.id, false, ulink);
+        }
+      });
+      window.onload = initi();
+    </script>
+  </body>
+</html>
