@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="fontawesome-free-6.5.1-web/fontawesome-free-6.5.1-web/css/all.css"
+    />
+  </head>
+  <style>
+    * {
+      margin: 0px;
+      padding: 0px;
+      outline: none;
+      border: none;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: rgb(195, 146, 241);
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      width: 45%;
+      background-color: aliceblue;
+      border-radius: 5px;
+      padding: 20px 30px 40px 30px;
+    }
+    input {
+      width: 80%;
+      border-bottom: 2px solid blueviolet;
+      background-color: transparent;
+    }
+    .bt {
+      padding: 10px 20px 10px 20px;
+      background-color: rgb(194, 135, 250);
+      letter-spacing: 2px;
+      border-radius: 5px;
+      margin-left: 10px;
+    }
+    .inner {
+      margin: 30px 20px 10px 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+    /* .out {
+    } */
+    .word {
+      margin: 10px 20px 0px 20px;
+      padding-top: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    h2 {
+      width: 70%;
+      background-color: transparent;
+    }
+    i {
+      color: rgb(194, 135, 250);
+    }
+    .details {
+      margin: 0px 20px 7px 20px;
+      display: flex;
+    }
+    .word-meaning {
+      margin-left: 20px;
+      color: rgb(178, 178, 245);
+    }
+    .word-example {
+      margin-left: 20px;
+      margin-top: 15px;
+      border-left: 5px solid rgb(194, 135, 250);
+      padding-left: 15px;
+      font-style: italic;
+      color: rgb(178, 178, 245);
+    }
+    h3 {
+      margin-left: 20px;
+      margin-top: 40px;
+      text-align: center;
+    }
+    @media screen and (max-width: 750px) {
+      .container {
+        width: 75%;
+      }
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div class="inner">
+        <input
+          id="inp-word"
+          type="search"
+          placeholder="Type The Word Here..."
+        />
+        <button class="bt">Search</button>
+      </div>
+      <div class="out"></div>
+    </div>
+    <audio id="sound"></audio>
+    <script>
+      let urlr = "https://api.dictionaryapi.dev/api/v2/entries/en/";
+      let result = document.querySelector(".out");
+      let soundo = document.querySelector("#sound");
+      const btn = document.querySelector(".bt");
+      btn.addEventListener("click", () => {
+        let inpword = document.querySelector("#inp-word").value;
+        fetch(`${urlr}${inpword}`)
+          .then((op) => op.json())
+          .then((kl) => {
+            console.log(kl);
+            result.innerHTML = `<div class="word">
+                <h2>${inpword}</h2>
+                <button onclick="play()"><i class="fas fa-volume-up"></i></button>
+              </div>
+              <div class="details">
+                <p>${kl[0].meanings[0].partOfSpeech}</p>
+                <p>/${kl[0].phonetics[1].text}/</p>
+              </div>
+              <p class="word-meaning">
+                ${kl[0].meanings[0].definitions[0].definition}
+              </p>
+              <p class="word-example">
+                ${kl[0].meanings[0].definitions[0].example || ""}
+              </p>`;
+            soundo.setAttribute("src", `${kl[0].phonetics[0].audio}`);
+          })
+          .catch(() => {
+            result.innerHTML = "<h3>Coluld Not Found The Word....</h3>";
+          });
+      });
+      function play() {
+        soundo.play();
+      }
+    </script>
+  </body>
+</html>
