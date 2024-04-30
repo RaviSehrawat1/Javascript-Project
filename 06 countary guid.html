@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    * {
+      margin: 0px;
+      pad: 0px;
+      border: none;
+      outline: none;
+    }
+    body {
+      background-color: rgb(235, 141, 141);
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      width: 40%;
+      background-color: white;
+      border-radius: 10px;
+      padding: 40px;
+    }
+    input {
+      border-bottom: 4px solid rgb(235, 141, 141);
+      width: 80%;
+    }
+    .bt {
+      padding: 10px 20px 10px 20px;
+      letter-spacing: 2px;
+      background-color: rgb(235, 141, 141);
+      border-radius: 20px;
+      margin-left: 20px;
+    }
+    .search {
+      display: flex;
+      justify-content: space-evenly;
+    }
+    .flag {
+      margin: 23px;
+      text-align: center;
+    }
+    h2 {
+      margin-top: 10px;
+    }
+    img {
+      width: 200px;
+    }
+    .detail {
+      line-height: 20px;
+      font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+        sans-serif;
+    }
+    h3 {
+      text-align: center;
+      margin-top: 20px;
+      color: rgb(235, 141, 141);
+    }
+    @media screen and (max-width: 650px) {
+      .container {
+        width: 80%;
+      }
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div class="search">
+        <input type="search" name="" id="op" />
+        <button class="bt">search</button>
+      </div>
+      <div class="out"></div>
+    </div>
+    <script>
+      let out = document.querySelector(".out");
+      let btn = document.querySelector(".bt");
+      let inp = document.querySelector("#op");
+      btn.addEventListener("click", () => {
+        let val = inp.value;
+        let urlo = `https://restcountries.com/v3.1/name/${val}?fullText=true`;
+        fetch(urlo)
+          .then((res) => res.json())
+          .then((kl) => {
+            out.innerHTML = `
+          <div class="flag">
+          <img src="${kl[0].flags.svg}" alt="" />
+          <h2>${val.toLocaleUpperCase()}</h2>
+        </div>
+        <div class="detail">
+          <p><b>Capital : </b>${kl[0].capital[0]}</p>
+          <p><b>Continent : </b>${kl[0].continents[0]}</p>
+          <p><b>Population : </b>${kl[0].population}</p>
+          <p><b>Currancy : </b>${
+            kl[0].currencies[Object.keys(kl[0].currencies)].name
+          } - ${Object.keys(kl[0].currencies)[0]}</p>
+          <p><b>Common Languages : </b>${Object.values(kl[0].languages)}</p>
+        </div>
+          `;
+          })
+          .catch(() => {
+            if (val.length == 0) {
+              out.innerHTML = "<h3>The input field cannot be empty...</h3>";
+            } else {
+              out.innerHTML = "<h3>Please enter a valid country name...</h3>";
+            }
+          });
+      });
+    </script>
+  </body>
+</html>
