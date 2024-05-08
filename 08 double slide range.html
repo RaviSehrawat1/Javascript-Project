@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    * {
+      margin: 0px;
+      padding: 0px;
+      box-sizing: border-box;
+    }
+    body {
+      width: 100vw;
+      height: 100vh;
+      background-color: rgb(62, 130, 185);
+    }
+    .wrapper {
+      background-color: white;
+      width: 45%;
+      position: relative;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 10px;
+      padding: 50px 40px 20px 40px;
+    }
+    .container {
+      position: relative;
+      width: 100%;
+      margin-top: 10px;
+      height: 100px;
+    }
+    input {
+      appearance: none;
+      width: 100%;
+      outline: none;
+      position: absolute;
+      outline: none;
+      margin: auto;
+      top: 0;
+      bottom: 0;
+      pointer-events: none;
+      background-color: transparent;
+    }
+    .slider-track {
+      width: 100%;
+      height: 5px;
+      position: absolute;
+      margin: auto;
+      top: 0;
+      bottom: 0;
+      border-radius: 5px;
+    }
+    @media screen and (max-width: 650px) {
+      .wrapper {
+        width: 90%;
+      }
+    }
+    .values {
+      background-color: rgb(88, 88, 224);
+      text-align: center;
+      width: 100px;
+      margin: 0% auto;
+      border-radius: 5px;
+      padding: 10px;
+      position: relative;
+      font-size: 20px;
+      color: white;
+      font-weight: 900;
+    }
+    .values::before {
+      content: "";
+      width: 0px;
+      height: 0px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -14px;
+      border-top: 15px solid rgb(88, 88, 224);
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      margin: auto;
+    }
+    input::-webkit-slider-runnable-track {
+      -webkit-appearance: none;
+      height: 5px;
+    }
+    input::-moz-range-track {
+      -moz-appearance: none;
+      height: 5px;
+    }
+    input::-ms-track {
+      -ms-appearance: none;
+      height: 5px;
+    }
+    input::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 10px;
+      height: 25px;
+      background-color: blue;
+      outline: 2px solid red;
+      margin-top: -9px;
+      outline-offset: 2px;
+      cursor: pointer;
+      pointer-events: auto;
+      border-radius: 5px;
+    }
+    input::-moz-range-thumb {
+      -webkit-appearance: none;
+      width: 10px;
+      height: 25px;
+      background-color: blue;
+      outline: 2px solid red;
+      margin-top: -9px;
+      outline-offset: 2px;
+      cursor: pointer;
+      pointer-events: auto;
+      border-radius: 5px;
+    }
+    input::-ms-thumb {
+      -webkit-appearance: none;
+      width: 10px;
+      height: 25px;
+      background-color: blue;
+      outline: 2px solid red;
+      margin-top: -9px;
+      outline-offset: 2px;
+      cursor: pointer;
+      pointer-events: auto;
+      border-radius: 5px;
+    }
+  </style>
+  <body>
+    <div class="wrapper">
+      <div class="values">
+        <span id="range1">0</span>
+        <span>&dash;</span>
+        <span id="range2">100</span>
+      </div>
+      <div class="container">
+        <div class="slider-track"></div>
+        <input
+          type="range"
+          min="0"
+          max="100"
+          name=""
+          id="slider-1"
+          value="30"
+          oninput="slideone()"
+        />
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value="70"
+          name=""
+          id="slider-2"
+          oninput="slidetwo()"
+        />
+      </div>
+    </div>
+    <script>
+      let slider1 = document.querySelector("#slider-1");
+      let slider2 = document.querySelector("#slider-2");
+      let disp1 = document.querySelector("#range1");
+      let disp2 = document.querySelector("#range2");
+      let slidertrack = document.querySelector(".slider-track");
+      let slidermaxvalue = document.querySelector("#slider-1").max;
+      let mingap = 0;
+      function slideone() {
+        if (parseInt(slider2.value) - parseInt(slider1.value) <= mingap) {
+          slider1.value = parseInt(slider2.value);
+        }
+        disp1.textContent = slider1.value;
+        fillcolor();
+      }
+      function slidetwo() {
+        if (parseInt(slider2.value) - parseInt(slider1.value) <= mingap) {
+          slider2.value = parseInt(slider1.value);
+        }
+        disp2.textContent = slider2.value;
+        fillcolor();
+      }
+      function fillcolor() {
+        p1 = (slider1.value / slidermaxvalue) * 100;
+        p2 = (slider2.value / slidermaxvalue) * 100;
+        slidertrack.style.background = `linear-gradient(to right,transparent ${p1}%,green ${p1}%,green ${p2}%,transparent ${p2}%)`;
+        console.log(slidertrack.style.background);
+      }
+      window.onload = function () {
+        slideone();
+        slidetwo();
+      };
+    </script>
+  </body>
+</html>
