@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    * {
+      margin: 0%;
+      padding: 0%;
+      box-sizing: border-box;
+    }
+    body {
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(
+        rgb(228, 141, 141) 50%,
+        rgb(173, 233, 173) 50%
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .wrapper {
+      width: 45%;
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .outerdie {
+      width: 100%;
+      padding: 10px;
+      display: flex;
+      justify-content: space-evenly;
+    }
+    img {
+      width: 70px;
+    }
+    @media screen and (max-width: 750px) {
+      .wrapper {
+        width: 80%;
+      }
+    }
+    button {
+      text-align: center;
+      padding: 10px 20px 10px 20px;
+      border: none;
+      background-color: blueviolet;
+      border-radius: 20px;
+      margin: 10px;
+      font-weight: 600;
+    }
+    .result {
+      text-align: center;
+      p {
+        margin: 10px;
+        color: brown;
+        font-weight: 900;
+      }
+    }
+    span {
+      color: rgb(4, 128, 0);
+    }
+    .anim {
+      animation: ravi 0.5s infinite;
+    }
+    @keyframes ravi {
+      0% {
+        transform: rotate(8deg);
+      }
+      50% {
+        transform: rotate(-8deg);
+      }
+      100% {
+        transform: rotate(8deg);
+      }
+    }
+  </style>
+  <body>
+    <div class="wrapper">
+      <div class="outerdie">
+        <img class="qw1" />
+        <img class="qw2" />
+      </div>
+      <div class="result">
+        <p class="total"></p>
+        <button onclick="abc()">Roll The Dice</button>
+      </div>
+    </div>
+    <script>
+      let dec = [
+        "image/dice-six-faces-one.svg",
+        "image/dice-six-faces-two.svg",
+        "image/dice-six-faces-three.svg",
+        "image/dice-six-faces-four.svg",
+        "image/dice-six-faces-five.svg",
+        "image/dice-six-faces-six.svg",
+      ];
+      let qw1 = document.querySelector(".qw1");
+      let qw2 = document.querySelector(".qw2");
+      let total = document.querySelector(".total");
+      console.log(total);
+      function abc() {
+        qw1.classList.add("anim");
+        qw2.classList.add("anim");
+        setTimeout(() => {
+          qw1.classList.remove("anim");
+          qw2.classList.remove("anim");
+          dic1ra = Math.floor(Math.random() * dec.length);
+          dic2ra = Math.floor(Math.random() * dec.length);
+          qw1.setAttribute("src", dec[dic1ra]);
+          qw2.setAttribute("src", dec[dic2ra]);
+          total.innerHTML = `Total number <span> ${
+            dic1ra + 1 + (dic2ra + 1)
+          }</span>`;
+        }, 1000);
+      }
+      abc();
+    </script>
+  </body>
+</html>
