@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="fontawesome-free-6.5.1-web/fontawesome-free-6.5.1-web/css/all.css"
+    />
+  </head>
+  <style>
+    * {
+      margin: 0%;
+      padding: 0%;
+      box-sizing: border-box;
+      border: none;
+      outline: none;
+    }
+    body {
+      width: 100vw;
+      height: 100vh;
+      background: repeating-radial-gradient(
+        rgb(145, 55, 230) 10%,
+        rgb(141, 51, 226) 20%,
+        rgb(209, 176, 182) 30%
+      );
+    }
+    .wrapper {
+      width: 45%;
+      position: relative;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .search {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+    }
+    #searc {
+      width: 60%;
+      border-bottom: 2px solid blueviolet;
+    }
+    .bt1 {
+      padding: 10px 20px 10px 20px;
+      border-radius: 10px;
+      background-color: blueviolet;
+      color: white;
+      font-weight: 600;
+      margin-left: 20px;
+    }
+    .op {
+      background-color: antiquewhite;
+      border-radius: 10px;
+      display: flex;
+      padding: 10px 0px 10px 0px;
+      margin: 10px 0px 10px 0px;
+      align-items: center;
+    }
+    .task {
+      padding: 10px;
+      font-size: 18px;
+      color: blueviolet;
+    }
+    .bt3 {
+      font-size: 18px;
+      background-color: rgb(240, 145, 145);
+      padding: 4px;
+      border-radius: 2px;
+      cursor: pointer;
+      position: absolute;
+      right: 20px;
+    }
+    .bt2 {
+      font-size: 18px;
+      background-color: rgb(104, 104, 243);
+      padding: 4px;
+      border-radius: 2px;
+      cursor: pointer;
+      position: absolute;
+      right: 60px;
+    }
+    .check {
+      position: absolute;
+      left: 20px;
+    }
+    .qwe {
+      text-decoration: line-through;
+      text-decoration-thickness: 2px;
+      text-decoration-color: brown;
+    }
+    span {
+      color: brown;
+    }
+    .taskvalue {
+      position: relative;
+      left: 50px;
+      width: 70%;
+      text-align: center;
+    }
+    @media screen and (max-width: 750px) {
+      .wrapper {
+        width: 80%;
+      }
+      .taskvalue {
+        width: 63%;
+      }
+    }
+  </style>
+  <body>
+    <div class="wrapper">
+      <div class="search">
+        <input
+          type="search"
+          name=""
+          id="searc"
+          placeholder="Please Enter Your Tasks..."
+        />
+        <button class="bt1">add</button>
+        <p class="task">Number of task are:- <span>0</span></p>
+      </div>
+      <div class="outer"></div>
+    </div>
+    <script>
+      let servalue = document.querySelector("#searc");
+      let searchbutton = document.querySelector(".bt1");
+      let outer = document.querySelector(".outer");
+      let op = document.querySelector(".op");
+      let count = 0;
+      searchbutton.addEventListener("click", () => {
+        if (servalue.value.length == 0) {
+          alert("please enter your task")
+        } else {
+          outer.innerHTML += `
+        <div class="op">
+          <input class="check" onchange="iop(this)" type="checkbox"/>
+          <p class="taskvalue">${servalue.value}</p>
+          <button class="bt2" onclick="abc2(this)"><i class="fa-solid fa-pen"></i></button>
+          <button class="bt3" onclick="abc1(this)"><i class="fa-solid fa-trash"></i></button>
+        </div>`;
+          servalue.value = "";
+          count += 1;
+          countli(count);
+        }
+      });
+      function abc1(kl) {
+        kl.parentNode.remove();
+        count -= 1;
+        countli(count);
+      }
+      function abc2(p) {
+        servalue.value = p.previousElementSibling.innerText;
+        p.parentNode.remove();
+        count -= 1;
+        countli(count);
+      }
+      function iop(nm) {
+        nm.nextElementSibling.classList.toggle("qwe");
+        if (nm.checked) {
+          count -= 1;
+        } else {
+          count += 1;
+        }
+        countli(count);
+      }
+      function countli(rt) {
+        document.querySelector(
+          ".task"
+        ).innerHTML = `Number of task are:- <span>${rt}</span>`;
+      }
+    </script>
+  </body>
+</html>
