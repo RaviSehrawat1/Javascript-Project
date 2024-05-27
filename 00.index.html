@@ -1,1 +1,35 @@
-
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script src="chart/chart1.js"></script>
+  <body>
+    <div>
+      <canvas id="myChart"></canvas>
+    </div>
+    <script>
+      const ctx = document.getElementById("myChart");
+     let myChart = new Chart(ctx, {
+        type: "pie",
+        data: {
+          labels: [1,2,3,4,5,6],
+          datasets: [
+            {
+              label: "# of Votes",
+              data: [16, 16, 16, 16, 16, 16],
+              borderWidth: 2,
+            },
+          ],
+        },
+        options: {
+            
+        },
+   
+        
+      });
+    </script>
+  </body>
+</html>
