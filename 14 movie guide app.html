@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Guide App</title>
+    <link rel="shortcut icon" href="radha.jpg" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="fontawesome-free-6.5.1-web/fontawesome-free-6.5.1-web/css/all.css"
+    />
+  </head>
+  <style>
+    * {
+      margin: 0%;
+      padding: 0%;
+      box-sizing: border-box;
+      border: none;
+      outline: none;
+    }
+    body {
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(black 50%, rgb(255, 187, 0) 50%);
+    }
+    .container {
+      max-width: 500px;
+      background: linear-gradient(145deg, rgb(77, 73, 73), rgb(255, 187, 0));
+      position: relative;
+      box-shadow: 0px 0px 20px rgb(53, 197, 24);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .searchbox {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    input {
+      width: 75%;
+      border: 1px solid white;
+      background-color: transparent;
+      height: 33px;
+      border-radius: 5px;
+      color: rgb(15, 15, 15);
+      padding: 4px;
+      color: white;
+    }
+    input::placeholder {
+      color: rgb(235, 222, 42);
+      font-style: italic;
+    }
+    .searchbtn {
+      padding: 10px 20px 10px 20px;
+      background-color: rgb(245, 203, 89);
+      border-radius: 10px;
+    }
+    .poster {
+      text-align: center;
+      img {
+        width: 150px;
+        height: 200px;
+        object-fit: cover;
+      }
+    }
+    .contant {
+      width: 80%;
+      padding: 10px;
+      text-align: center;
+      color: white;
+      pre {
+        color: rgb(213, 231, 46);
+        font-weight: 700;
+        margin-top: 8px;
+        font-size: large;
+        font-family: "Times New Roman", Times, serif;
+      }
+    }
+    .option {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      div {
+        border: 1px solid rgb(100, 98, 98);
+        border-radius: 5px;
+        padding: 3px 10px 3px 10px;
+      }
+    }
+    .main {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      margin-top: 10px;
+    }
+    .plot {
+      margin-top: 10px;
+      h3 {
+        color: white;
+      }
+      p {
+        color: rgb(231, 162, 240);
+      }
+    }
+    .cast {
+      margin-top: 10px;
+      h3 {
+        color: white;
+      }
+      p {
+        color: rgb(231, 162, 240);
+      }
+    }
+    @media screen and (max-width: 768px) {
+      .container {
+        width: 80%;
+      }
+      input {
+        width: 75%;
+        height: 5%;
+      }
+      .searchbtn {
+        padding: 5px 10px 5px 10px;
+      }
+      .main {
+        display: block;
+      }
+      .contant {
+        width: 100%;
+        padding: 0px;
+      }
+    }
+    .outer-main {
+      .error {
+        margin: 20px;
+        color: rgb(214, 27, 27);
+        text-align: center;
+      }
+    }
+    .fas {
+      color: blueviolet;
+      font-size: 20px;
+    }
+    .star {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .ero {
+      margin: 20px;
+      color: rgb(214, 27, 27);
+      text-align: center;
+    }
+    /* spinner css */
+    .load {
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      padding: 10px;
+    }
+    .loader {
+      animation: rotate 1s infinite;
+      height: 50px;
+      width: 50px;
+    }
+
+    .loader:before,
+    .loader:after {
+      border-radius: 50%;
+      content: "";
+      display: block;
+      height: 20px;
+      width: 20px;
+    }
+    .loader:before {
+      animation: ball1 1s infinite;
+      background-color: black;
+      box-shadow: 30px 0 0 yellow;
+      margin-bottom: 10px;
+    }
+    .loader:after {
+      animation: ball2 1s infinite;
+      background-color: #ff3d00;
+      box-shadow: 30px 0 0 #fff;
+    }
+
+    @keyframes rotate {
+      0% {
+        transform: rotate(0deg) scale(0.8);
+      }
+      50% {
+        transform: rotate(360deg) scale(1.2);
+      }
+      100% {
+        transform: rotate(720deg) scale(0.8);
+      }
+    }
+
+    @keyframes ball1 {
+      0% {
+        box-shadow: 30px 0 0 #ff3d00;
+      }
+      50% {
+        box-shadow: 0 0 0 #ff3d00;
+        margin-bottom: 0;
+        transform: translate(15px, 15px);
+      }
+      100% {
+        box-shadow: 30px 0 0 #ff3d00;
+        margin-bottom: 10px;
+      }
+    }
+
+    @keyframes ball2 {
+      0% {
+        box-shadow: 30px 0 0 #fff;
+      }
+      50% {
+        box-shadow: 0 0 0 #fff;
+        margin-top: -20px;
+        transform: translate(15px, 15px);
+      }
+      100% {
+        box-shadow: 30px 0 0 #fff;
+        margin-top: 0;
+      }
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div class="searchbox">
+        <input
+          type="search"
+          name=""
+          id="moviename"
+          placeholder="Please Enter Movie Name...."
+        />
+        <button class="searchbtn" onclick="abc()">Search</button>
+      </div>
+      <div class="outer-main"></div>
+    </div>
+    <script>
+      let moviename = document.querySelector("#moviename");
+      let searchbtn = document.querySelector(".searchbtn");
+      let result = document.querySelector(".outer-main");
+      function abc() {
+        movivalue = moviename.value;
+        let key = `http://www.omdbapi.com/?t=${movivalue}&apikey=20e4ff01`;
+        if (movivalue.length <= 0) {
+          result.innerHTML = `
+          <h1 class="error">Please Enter Movies Name..</h1>
+          `;
+        } else {
+          fetch(key)
+            .then((resp) => resp.json())
+            .then((data) => {
+              console.log(data);
+              if (data.Response == "True") {
+                result.innerHTML = `
+                      <div class="main">
+                        <div class="poster">
+                          <img src=${data.Poster} alt="" />
+                        </div>
+                        <div class="contant">
+                          <h1>${data.Title}</h1>
+                          <div class="star">
+                            <i class="fas fa-star"></i>
+                            <h1>${data.imdbRating}</h1>
+                          </div>
+                          <pre>${data.Rated}   ${data.Year}   ${
+                  data.Runtime
+                }</pre>
+                          <div class="option">
+                          <div>${data.Genre.split(",").join(
+                            "</div><div>"
+                          )}</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="plot">
+                        <h3>plot:</h3>
+                        <p>${data.Plot}</p>
+                      </div>
+                      <div class="cast">
+                        <h3>Cast:</h3>
+                        <p>${data.Writer}</p>
+                      </div>
+                            `;
+                moviename.value="";
+              } else {
+                result.innerHTML = `
+                  <h1 class="ero">${data.Error}</h1>
+                `;
+              }
+            })
+            .catch(() => {
+              result.innerHTML = `
+             <div class="load">
+              <span class="loader"></span>
+            </div>
+              `;
+            });
+        }
+      }
+    </script>
+  </body>
+</html>
