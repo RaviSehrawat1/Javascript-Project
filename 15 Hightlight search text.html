@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search Text</title>
+    <link rel="shortcut icon" href="radha.jpg" type="image/x-icon" />
+  </head>
+  <style>
+    * {
+      padding: 0%;
+      margin: 0%;
+      box-sizing: border-box;
+      outline: none;
+      border: none;
+    }
+    body {
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(to right, black 50%, rgb(226, 216, 216) 50%);
+    }
+    .container {
+      width: 80vmin;
+      border-radius: 20px;
+      position: relative;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgb(228, 236, 243);
+      padding: 20px;
+      box-shadow: 0px 0px 10px black, 0px 0px 20px white;
+    }
+    .search {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    input {
+      width: 50vmin;
+      padding: 1.5vmin;
+      border-radius: 10px;
+    }
+    .sbtn {
+      padding: 1.5vmin 5vmin 1.5vmin 5vmin;
+      color: white;
+      background-color: black;
+      border-radius: 10px;
+    }
+    .text {
+      margin: 20px 0px 0px 0px;
+      line-height: 25px;
+      font-size: 18px;
+    }
+    mark {
+      color: rgb(43, 226, 58);
+    }
+    @media screen and (max-width: 480px) {
+      input {
+        width: 40vmin;
+      }
+      .sbtn {
+        padding: 1.5vmin 5vmin 1.5vmin 5vmin;
+      }
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div class="search">
+        <input
+          type="search"
+          placeholder="Input Your Text To Search...."
+          id="sin"
+        />
+        <button class="sbtn" onclick="abc()">Search</button>
+      </div>
+      <div class="text">
+        <p class="text1">
+          my name is ravikumar my father name is satvir and my mother name is
+          mahendri and my brother name is dvender sehrawat.
+        </p>
+      </div>
+    </div>
+    <script>
+      let sin = document.querySelector("#sin");
+      let text1 = document.querySelector(".text1");
+      function abc() {
+        let ac = new RegExp(`${sin.value}`, "gi");
+        console.log(ac);
+        text1.innerHTML = text1.textContent.replace(
+          ac,
+          `<mark>${sin.value}</mark>`
+        );
+        sin.value = "";
+      }
+    </script>
+  </body>
+</html>
