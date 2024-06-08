@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe App</title>
+    <link rel="shortcut icon" href="radha.jpg" type="image/x-icon" />
+  </head>
+  <style>
+    * {
+      margin: 0px;
+      box-sizing: border-box;
+      outline: none;
+      border: none;
+    }
+    body {
+      width: 100vw;
+      height: 100vh;
+      background-color: rgb(196, 228, 14);
+    }
+    .container {
+      width: 80%;
+      max-width: 500px;
+      background-color: rgb(255, 255, 255, 0.8);
+      min-width: 200px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgb(51, 53, 42);
+      position: relative;
+      left: 50%;
+      top: 20px;
+      transform: translate(-50%);
+    }
+    .sear {
+      display: flex;
+      justify-content: space-between;
+    }
+    input {
+      width: 70%;
+      padding: 5px 5px 5px 10px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgb(196, 228, 14);
+    }
+    .btn,
+    .btn2 {
+      padding: 9px 20px 9px 20px;
+      background-color: rgb(196, 228, 14);
+      border-radius: 10px;
+    }
+    .im1 {
+      display: flex;
+      margin-top: 20px;
+      justify-content: center;
+      img {
+        width: 40%;
+      }
+    }
+    .name {
+      background-color: rgb(196, 228, 14);
+      padding: 10px;
+      text-align: center;
+    }
+    ul {
+      padding: 10px;
+      display: grid;
+      grid-template-columns: auto auto;
+      justify-content: space-between;
+      grid-gap: 10px;
+      list-style-position: inside;
+      li::marker {
+        color: rgb(130, 151, 7);
+      }
+    }
+    .viewre {
+      display: flex;
+      justify-content: end;
+    }
+    input::placeholder {
+      color: blueviolet;
+    }
+    .qw1 {
+      width: 90%;
+      max-width: 500px;
+      background-color: rgb(255, 255, 255, 0.8);
+      min-width: 200px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgb(51, 53, 42);
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      max-height: 90vh;
+      overflow-y: scroll;
+      p {
+        line-height: 25px;
+      }
+    }
+    .qw2 {
+      display: flex;
+      justify-content: end;
+      position: sticky;
+      top: 0;
+      left: 0;
+    }
+    .btn3 {
+      background-color: rgb(196, 228, 14);
+      padding: 5px;
+      margin: 5px 0px 5px 0px;
+      border-radius: 5px;
+    }
+    .hide {
+      visibility: hidden;
+    }
+    .kl {
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+  <body>
+    <div class="qw1 hide"></div>
+    <div class="container">
+      <div class="sear">
+        <input
+          class="inp"
+          type="search"
+          onfocus="abc(this)"
+          onblur="abc2(this)"
+          placeholder="Enter Your Recipe Name...."
+          id="rav"
+        />
+        <button class="btn" onclick="qwe1()">search</button>
+      </div>
+      <div class="all"></div>
+    </div>
+    <script>
+      function abc(p) {
+        p.style.backgroundColor = "rgb(196, 228, 14,.2)";
+      }
+      function abc2(p) {
+        p.style.backgroundColor = "white";
+      }
+      function abc3() {
+        document.querySelector(".container").classList.add("hide");
+        document.querySelector(".qw1").classList.remove("hide");
+      }
+      function abc4() {
+        document.querySelector(".container").classList.remove("hide");
+        document.querySelector(".qw1").classList.add("hide");
+      }
+      function qwe1() {
+        let navalue = document.querySelector(".inp").value;
+        if (navalue.length <= 0) {
+          document.querySelector(".all").innerHTML =
+            "<h3 class='kl'>Please Enter The Recipe Name</h3>";
+        } else {
+          let url = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
+          fetch(url + navalue)
+            .then((response) => response.json())
+            .then((data) => {
+              let mymeal = data.meals[0];
+              // console.log(mymeal);
+              let count = 1;
+              let ingrident = [];
+              for (const key in mymeal) {
+                let ingri = "";
+                let mesu = "";
+                if (key.startsWith("strIngredient") && mymeal[key]) {
+                  ingri = mymeal[key];
+                  mesu = mymeal[`strMeasure` + count];
+                  count += 1;
+                  ingrident.push(`${mesu} ${ingri}`);
+                }
+              }
+              let op = ingrident.toString();
+              document.querySelector(".all").innerHTML = `
+              <div class="im1">
+                <img src="${mymeal.strMealThumb}" alt="" />
+              </div>
+              <div class="name">
+                <h3>${mymeal.strMeal}</h3>
+                <p>${mymeal.strArea}</p>
+              </div>
+              <ul>
+                <li>${op.split(",").join("</li><li>")}</li>
+              </ul>
+              <div class="viewre">
+                <button class="btn2" onclick="abc3()">View Recipe</button>
+              </div>
+              `;
+              document.querySelector(".qw1").innerHTML = `
+              <div class="qw2">
+              <button class="btn3" onclick="abc4()"><b>X</b></button>
+            </div>
+            <p>
+              ${mymeal.strInstructions}
+            </p>
+              `;
+              document.querySelector(".inp").value = "";
+            });
+        }
+      }
+    </script>
+  </body>
+</html>
